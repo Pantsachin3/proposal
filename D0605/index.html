@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Vaibhav — Will you be my Valentine?</title>
+<title>Deepti — Will you be my Valentine?</title>
 
 <!-- Confetti -->
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -17,7 +17,7 @@ body{
   display:flex;
   align-items:center;
   justify-content:center;
-  background:linear-gradient(135deg,#e9f3ff,#ffffff);
+  background:linear-gradient(135deg,#ffe6ee,#fff);
   overflow:hidden;
 }
 
@@ -28,10 +28,10 @@ body{
   padding:40px 25px;
   border-radius:22px;
   text-align:center;
-  box-shadow:0 20px 50px rgba(0,80,180,.18);
+  box-shadow:0 20px 50px rgba(255,0,90,.18);
 }
 
-h1{color:#0057b7;font-size:2.2rem;margin-bottom:8px}
+h1{color:#ff2d55;font-size:2.2rem;margin-bottom:8px}
 p{color:#444;margin-bottom:30px}
 
 .buttons{
@@ -52,9 +52,9 @@ button{
 }
 
 .yes{
-  background:linear-gradient(90deg,#4facfe,#0057b7);
+  background:linear-gradient(90deg,#ff6b9a,#ff2d55);
   color:white;
-  box-shadow:0 8px 20px rgba(0,87,183,.4);
+  box-shadow:0 8px 20px rgba(255,45,85,.4);
 }
 
 .no-wrap{
@@ -67,8 +67,8 @@ button{
   width:100%;
   height:100%;
   background:#fff;
-  border:2px solid #b3d4ff;
-  color:#0057b7;
+  border:2px solid #ffc1d9;
+  color:#ff2d55;
 }
 
 .note{font-size:.9rem;color:#999;margin-top:18px}
@@ -98,45 +98,45 @@ button{
   from{transform:scale(.8);opacity:0}
   to{transform:scale(1);opacity:1}
 }
-.card h2{color:#0057b7}
+.card h2{color:#ff2d55}
 
 .close{
   margin-top:20px;
-  background:#0057b7;
+  background:#ff2d55;
   color:white;
 }
 </style>
+<head>
+  <meta name="robots" content="noindex, nofollow">
 </head>
 
 <body>
 
 <!-- Music -->
 <audio id="music" loop>
-  <source src="https://assets.mixkit.co/music/preview/mixkit-serene-love-collection-850.mp3" type="audio/mpeg">
+  <source src="https://assets.mixkit.co/music/preview/mixkit-romantic-hopeful-piano-243.mp3" type="audio/mpeg">
 </audio>
 
 <div class="wrapper">
-  <h1 id="mainTitle">Vaibhav — will you be my Valentine? 💖</h1>
-  <p id="subtitle">
-    Every little moment feels warmer and happier when it’s with you.
-  </p>
+  <h1 id="mainTitle">Deepti — Will you be my Valentine? 💖</h1>
+  <p id="subtitle">You make my ordinary days feel magical.</p>
 
   <div class="buttons" id="container">
-    <button class="yes" id="yesBtn">Yes ❤️</button>
+    <button class="yes" id="yesBtn">Yes 💕</button>
 
     <div class="no-wrap" id="noWrap">
-      <button class="no" id="noBtn">No 🙈</button>
+      <button class="no" id="noBtn">No 😜</button>
     </div>
   </div>
 
-  <div class="note">Go ahead… try clicking “No” 😉</div>
+  <div class="note">Try clicking “No” 😉</div>
 </div>
 
 <!-- Modal -->
 <div class="modal" id="modal">
   <div class="card" id="modalCard">
-    <h2 id="modalTitle">One small thing… ✨</h2>
-    <p id="modalText">Just a second</p>
+    <h2 id="modalTitle">One last question 😌</h2>
+    <p id="modalText">Just a moment…</p>
     <button class="close" id="finalBtn">Always ❤️</button>
   </div>
 </div>
@@ -160,14 +160,14 @@ noBtn.addEventListener('mouseenter',moveNo);
 noBtn.addEventListener('touchstart',e=>{e.preventDefault();moveNo();});
 
 yesBtn.addEventListener('click',()=>{
-  // Remove NO
+  // Remove NO button
   noWrap.style.display='none';
 
-  // Change text
+  // Change main text
   document.getElementById('mainTitle').innerText=
-    "Vaibhav, you just made my Valentine complete ❤️";
+    "Deepti, you just made me the happiest person ❤️";
   document.getElementById('subtitle').innerText=
-    "And I wouldn’t want to spend it with anyone else.";
+    "I was always hoping you'd say yes…";
 
   // Music fade-in
   music.volume=0;
@@ -190,16 +190,16 @@ function startCountdown(){
   const btn=document.getElementById('finalBtn');
   btn.style.display='none';
 
-  title.innerText="Just one more thing 💫";
+  title.innerText="One more thing… 💫";
 
   const timer=setInterval(()=>{
     text.innerText=count+"...";
     count--;
     if(count<0){
       clearInterval(timer);
-      title.innerText="So here it is 💙";
+      title.innerText="Okay, final question ❤️";
       text.innerText=
-        "Will you be my Valentine today, tomorrow, and every day that follows?";
+        "Will you let me love you, annoy you, support you and stand by you… always?";
       btn.style.display='inline-block';
     }
   },1000);
@@ -207,26 +207,26 @@ function startCountdown(){
 
 document.getElementById('finalBtn').addEventListener('click',()=>{
   document.getElementById('modalCard').innerHTML=`
-    <h2>Valentine Locked 💖</h2>
+    <h2>Decision Locked 🔒❤️</h2>
     <p>
-      This yes just made my day brighter.<br>
-      Happy Valentine’s Day ❤️
+      This answer is saved forever.<br>
+      No undo. No escape. Just us.
     </p>
-    <p style="margin-top:18px;font-size:1.4rem">💙💙💙</p>
+    <p style="margin-top:18px;font-size:1.4rem">💖💖💖</p>
   `;
   fireConfetti();
 });
 
 /* Confetti */
 function fireConfetti(){
-  confetti({particleCount:150,spread:110,origin:{y:.6}});
+  confetti({particleCount:140,spread:100,origin:{y:.6}});
 }
 
 /* Hearts */
 function heartsBurst(){
-  for(let i=0;i<22;i++){
+  for(let i=0;i<25;i++){
     const h=document.createElement('div');
-    h.innerHTML='💙';
+    h.innerHTML='💖';
     h.style.position='fixed';
     h.style.left=Math.random()*100+'vw';
     h.style.bottom='-20px';
