@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vaibhav — Will you be my Valentine?</title>
+
+<!-- Confetti -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:'Segoe UI',system-ui,sans-serif;
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg,#e9f3ff,#ffffff);
+  overflow:hidden;
+}
+
+.wrapper{
+  background:white;
+  width:92%;
+  max-width:900px;
+  padding:40px 25px;
+  border-radius:22px;
+  text-align:center;
+  box-shadow:0 20px 50px rgba(0,80,180,.18);
+}
+
+h1{color:#0057b7;font-size:2.2rem;margin-bottom:8px}
+p{color:#444;margin-bottom:30px}
+
+.buttons{
+  position:relative;
+  height:140px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:28px;
+}
+
+button{
+  padding:12px 26px;
+  font-size:1rem;
+  border:none;
+  border-radius:999px;
+  cursor:pointer;
+}
+
+.yes{
+  background:linear-gradient(90deg,#4facfe,#0057b7);
+  color:white;
+  box-shadow:0 8px 20px rgba(0,87,183,.4);
+}
+
+.no-wrap{
+  position:relative;
+  width:120px;
+  height:50px;
+}
+
+.no{
+  width:100%;
+  height:100%;
+  background:#fff;
+  border:2px solid #b3d4ff;
+  color:#0057b7;
+}
+
+.note{font-size:.9rem;color:#999;margin-top:18px}
+
+/* Modal */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.45);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:20;
+}
+.modal.show{display:flex}
+
+.card{
+  background:white;
+  padding:30px;
+  border-radius:18px;
+  width:90%;
+  max-width:420px;
+  text-align:center;
+  animation:pop .4s ease;
+}
+@keyframes pop{
+  from{transform:scale(.8);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+.card h2{color:#0057b7}
+
+.close{
+  margin-top:20px;
+  background:#0057b7;
+  color:white;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Music -->
+<audio id="music" loop>
+  <source src="https://assets.mixkit.co/music/preview/mixkit-serene-love-collection-850.mp3" type="audio/mpeg">
+</audio>
+
+<div class="wrapper">
+  <h1 id="mainTitle">Vaibhav — will you be my Valentine? 💖</h1>
+  <p id="subtitle">
+    Every little moment feels warmer and happier when it’s with you.
+  </p>
+
+  <div class="buttons" id="container">
+    <button class="yes" id="yesBtn">Yes ❤️</button>
+
+    <div class="no-wrap" id="noWrap">
+      <button class="no" id="noBtn">No 🙈</button>
+    </div>
+  </div>
+
+  <div class="note">Go ahead… try clicking “No” 😉</div>
+</div>
+
+<!-- Modal -->
+<div class="modal" id="modal">
+  <div class="card" id="modalCard">
+    <h2 id="modalTitle">One small thing… ✨</h2>
+    <p id="modalText">Just a second</p>
+    <button class="close" id="finalBtn">Always ❤️</button>
+  </div>
+</div>
+
+<script>
+const noBtn=document.getElementById('noBtn');
+const noWrap=document.getElementById('noWrap');
+const container=document.getElementById('container');
+const yesBtn=document.getElementById('yesBtn');
+const modal=document.getElementById('modal');
+const music=document.getElementById('music');
+
+function moveNo(){
+  const c=container.getBoundingClientRect();
+  const b=noWrap.getBoundingClientRect();
+  const x=Math.random()*(c.width-b.width);
+  const y=Math.random()*(c.height-b.height);
+  noWrap.style.transform=`translate(${x}px,${y}px)`;
+}
+noBtn.addEventListener('mouseenter',moveNo);
+noBtn.addEventListener('touchstart',e=>{e.preventDefault();moveNo();});
+
+yesBtn.addEventListener('click',()=>{
+  // Remove NO
+  noWrap.style.display='none';
+
+  // Change text
+  document.getElementById('mainTitle').innerText=
+    "Vaibhav, you just made my Valentine complete ❤️";
+  document.getElementById('subtitle').innerText=
+    "And I wouldn’t want to spend it with anyone else.";
+
+  // Music fade-in
+  music.volume=0;
+  music.play();
+  const fade=setInterval(()=>{
+    if(music.volume<0.9) music.volume+=0.05;
+    else clearInterval(fade);
+  },200);
+
+  fireConfetti();
+  heartsBurst();
+  modal.classList.add('show');
+  startCountdown();
+});
+
+function startCountdown(){
+  let count=3;
+  const title=document.getElementById('modalTitle');
+  const text=document.getElementById('modalText');
+  const btn=document.getElementById('finalBtn');
+  btn.style.display='none';
+
+  title.innerText="Just one more thing 💫";
+
+  const timer=setInterval(()=>{
+    text.innerText=count+"...";
+    count--;
+    if(count<0){
+      clearInterval(timer);
+      title.innerText="So here it is 💙";
+      text.innerText=
+        "Will you be my Valentine today, tomorrow, and every day that follows?";
+      btn.style.display='inline-block';
+    }
+  },1000);
+}
+
+document.getElementById('finalBtn').addEventListener('click',()=>{
+  document.getElementById('modalCard').innerHTML=`
+    <h2>Valentine Locked 💖</h2>
+    <p>
+      This yes just made my day brighter.<br>
+      Happy Valentine’s Day ❤️
+    </p>
+    <p style="margin-top:18px;font-size:1.4rem">💙💙💙</p>
+  `;
+  fireConfetti();
+});
+
+/* Confetti */
+function fireConfetti(){
+  confetti({particleCount:150,spread:110,origin:{y:.6}});
+}
+
+/* Hearts */
+function heartsBurst(){
+  for(let i=0;i<22;i++){
+    const h=document.createElement('div');
+    h.innerHTML='💙';
+    h.style.position='fixed';
+    h.style.left=Math.random()*100+'vw';
+    h.style.bottom='-20px';
+    h.style.fontSize=(20+Math.random()*20)+'px';
+    h.style.zIndex=30;
+    document.body.appendChild(h);
+
+    h.animate([
+      {transform:'translateY(0)',opacity:1},
+      {transform:'translateY(-120vh)',opacity:0}
+    ],{duration:4500,easing:'ease-out'});
+
+    setTimeout(()=>h.remove(),5000);
+  }
+}
+</script>
+
+</body>
+</html>
